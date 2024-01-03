@@ -1,0 +1,85 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2206                                  |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      controlDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+
+application     chtMultiRegionFoam;
+
+startFrom       latestTime; //startTime
+
+startTime       0;
+
+stopAt          endTime;
+
+//stopAt		writeNow;
+
+endTime         0.1;
+
+deltaT          0.00001;
+
+//writeControl    adujstableRunTime;
+
+writeControl    runTime;
+
+writeInterval   0.0001;
+
+purgeWrite      0;
+
+writeFormat     ascii;
+
+writePrecision  12;
+
+writeCompression off;
+
+timeFormat      general;
+
+timePrecision   12;
+
+runTimeModifiable yes;
+
+maxCo           0.6;
+
+maxDeltaT	0.00001;
+
+minDeltaT	0.000001;
+
+// Maximum diffusion number
+maxDi           10.0;
+
+adjustTimeStep  yes;
+
+functions
+{
+    probes2
+    {
+        type            probes;
+        libs            (sampling);
+        probeLocations	( (0 0.0001 0.0) (0.01 0.0001 0.0) (0.02 0.0001 0.0) (0.03 0.0001 0.0) (0.04 0.0001 0.0) (0.05 0.0001 0.0) (0.06 0.0001 0.0) (0.07 0.0001 0.0) (0.08 0.0001 0.0) (0.09 0.0001 0.0) (0.1 0.0001 0.0) (0.11 0.0001 0.0) (0.12 0.0001 0.0) (0.13 0.0001 0.0) (0.14 0.0001 0.0) (0.15 0.0001 0.0) (0.16 0.0001 0.0));
+        fields		(U p p_rgh T);
+        
+        region          Fluid;
+        enabled         true;
+        log             true;
+        timeStart       0;            //$startTime
+        timeEnd         0.1;
+        executeControl  timeStep;
+        executeInterval 1;
+        writeControl    runTime;
+        writeInterval   0.0001;
+    } 
+    
+    //include "sets1"
+}
+// ************************************************************************* //

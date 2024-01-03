@@ -1,0 +1,17 @@
+
+        type            probes;
+        libs            (sampling);
+        probeLocations	( (0 0.0001 0.0));
+        fields		(p);
+        
+        region          Fluid;
+        enabled         true;
+        log             true;
+        timeStart       0;            //$startTime
+        timeEnd         0.1;
+        executeControl  timeStep;
+        executeInterval 1;
+        writeControl    runTime;
+        writeInterval   0.0001;
+
+    

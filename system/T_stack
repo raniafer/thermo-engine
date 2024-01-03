@@ -1,0 +1,43 @@
+
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2212                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+
+
+    	type                sets;
+    	libs                ("libsampling.so");
+    	writeControl        writeTime;
+        enabled         true;
+        log             true;
+        timeStart       0;            //$startTime
+        timeEnd         0.1;
+        executeControl  timeStep;
+        executeInterval 1;
+        writeControl    runTime;
+        writeInterval   0.0001;
+    	interpolationScheme cellPoint;
+    	setFormat           gnuplot;
+	region		Fluid;
+
+    sets
+    (
+        data
+        {
+            type            uniform;
+            axis            y;
+            start           (0.0 0.0001 0.0);
+            end             (0.16 0.0001 0.0);
+            nPoints	    17;
+        }
+    );
+
+    fields
+    (
+            U p T p_rgh
+    );
+
+// ************************************************************************* //

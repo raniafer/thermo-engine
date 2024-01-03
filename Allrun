@@ -1,0 +1,32 @@
+#source /opt/soft/OpenFOAM-v2212/etc/bashrc
+#!/bin/sh
+
+cd ${0%/*} || exit 1    # Run from this directory
+
+# Source tutorial run functions
+. ${WM_PROJECT_DIR:?}/bin/tools/RunFunctions 
+
+ blockMesh
+
+ topoSet
+
+ splitMeshRegions -cellZones -overwrite
+
+ for i in $(foamListRegions)
+ do
+    changeDictionary -region $i
+ done
+
+#    setExprFields -region Stack
+
+runApplication decomposePar -allRegions
+
+runParallel $(getApplication) > log.run
+
+
+reconstructPar -allRegions
+
+
+
+#--------------------------------------------------------------------------
+
